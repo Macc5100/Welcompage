@@ -693,7 +693,7 @@
                 bc.postMessage(eventData);
             } catch (err) {}
 
-            const apiUrl = localStorage.getItem('vortex_cloud_api');
+            const apiUrl = 'https://vortex-leads-api.autopage.workers.dev/';
             if (apiUrl) {
                 try {
                     await fetch(apiUrl, {
