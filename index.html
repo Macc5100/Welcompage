@@ -64,21 +64,60 @@
             background: rgba(156, 163, 175, 0.5);
             border-radius: 9999px;
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans selection:bg-indigo-500 selection:text-white antialiased overflow-x-hidden" x-data="{ promoModal: true }">
+<body class="bg-slate-50 text-slate-800 font-sans selection:bg-indigo-500 selection:text-white antialiased overflow-x-hidden" 
+      x-data="{ promoModal: true, devAuthModal: false, devPass: '', devError: false }"
+      @keydown.window.ctrl.shift.a.prevent="devAuthModal = true; devError = false; devPass = ''">
 
-    <!-- Cross-Domain Sync Bridge (เชื่อมต่อไปยังหลังบ้านอัตโนมัติ) -->
+    <!-- Cross-Domain Sync Bridge (เชื่อมต่อไปยังหลังบ้านอัตโนมัติแบบซ่อน) -->
     <iframe id="apex-sync-bridge" src="https://apex-dash-bhv.pages.dev/" style="display:none;" title="Sync Bridge"></iframe>
 
-    <!-- Toast Notification Banner (แทนการใช้ alert) -->
+    <!-- Toast Notification Banner -->
     <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 border border-indigo-500/40 text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3.5 max-w-sm">
         <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
             <i class="fa-solid fa-circle-check text-lg"></i>
         </div>
         <div>
             <h4 class="font-bold text-sm" id="toast-title">ส่งข้อมูลสำเร็จ!</h4>
-            <p class="text-xs text-slate-300 mt-0.5" id="toast-desc">ข้อมูลถูกซิงก์ไปยังระบบหลังบ้าน ApexDash เรียบร้อยแล้ว</p>
+            <p class="text-xs text-slate-300 mt-0.5" id="toast-desc">ทีมงานได้รับข้อมูลของคุณเรียบร้อยแล้ว</p>
+        </div>
+    </div>
+
+    <!-- Developer Security Gate Modal (หน้าต่างใส่รหัสผ่านเฉพาะทีมผู้พัฒนา) -->
+    <div x-show="devAuthModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md transition-all" x-transition.opacity>
+        <div @click.away="devAuthModal = false" class="relative max-w-md w-full bg-slate-900 text-white rounded-3xl p-8 shadow-2xl border border-indigo-500/40 overflow-hidden">
+            <button @click="devAuthModal = false" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-xl mb-5">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <h3 class="text-xl font-extrabold mb-1">Developer Access Only</h3>
+            <p class="text-slate-400 text-xs mb-6">พื้นที่เฉพาะทีมผู้พัฒนา กรุณากรอกรหัสผ่าน (Access Key) เพื่อเข้าสู่ระบบหลังบ้าน ApexDash</p>
+
+            <form @submit.prevent="verifyDeveloperAccess($data)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Developer Access Code</label>
+                    <input type="password" x-model="devPass" @input="devError = false" placeholder="••••••••••••" required autofocus
+                           class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition tracking-widest">
+                    <p x-show="devError" class="text-rose-400 text-xs mt-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-exclamation"></i> รหัสผ่านไม่ถูกต้อง เฉพาะทีมผู้พัฒนาที่ได้รับอนุญาตเท่านั้น
+                    </p>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" @click="devAuthModal = false" class="flex-1 py-3 rounded-xl font-bold text-slate-300 bg-white/10 hover:bg-white/15 transition text-xs">
+                        ยกเลิก
+                    </button>
+                    <button type="submit" class="flex-1 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/30 transition text-xs flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-unlock-keyhole"></i> ยืนยันเข้าหลังบ้าน
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -127,7 +166,7 @@
         <div class="absolute -bottom-8 left-1/3 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
     </div>
 
-    <!-- Navigation Header -->
+    <!-- Navigation Header (ซ่อนปุ่มหลังบ้านออกจากสายตาลูกค้าทั่วไปแล้ว) -->
     <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 border-b border-slate-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -149,9 +188,8 @@
             </nav>
 
             <div class="flex items-center space-x-3">
-                <!-- เชื่อมต่อปุ่มเข้าสู่ระบบไปยังหลังบ้านโดยตรง -->
-                <a href="https://apex-dash-bhv.pages.dev/" target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition shadow-sm border border-indigo-100">
-                    <i class="fa-solid fa-gauge-high mr-1.5"></i> ระบบหลังบ้าน (ApexDash)
+                <a href="#pricing" class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition shadow-sm">
+                    ดูแพ็กเกจสุดคุ้ม
                 </a>
                 <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25 transition transform hover:-translate-y-0.5">
                     ปรึกษาทีมงาน <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
@@ -193,7 +231,7 @@
                     <div class="pt-6 border-t border-slate-200/60 flex items-center justify-center lg:justify-start space-x-6 text-slate-400 text-xs font-semibold">
                         <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> แม่นยำระดับ Enterprise</div>
                         <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> เซฟงบแอดไม่ให้ไหลทิ้ง</div>
-                        <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> เชื่อมต่อหลังบ้านเรียลไทม์</div>
+                        <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> ติดตั้งง่ายใน 5 นาที</div>
                     </div>
                 </div>
 
@@ -216,7 +254,7 @@
                                     <div>
                                         <h3 class="font-bold text-sm leading-snug">Vortex Assistant</h3>
                                         <p class="text-xs text-indigo-100 flex items-center">
-                                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> ซิงก์ข้อมูลกับ ApexDash 24 ชม.
+                                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> AI พร้อมตอบตลอด 24 ชม.
                                         </p>
                                     </div>
                                 </div>
@@ -276,7 +314,7 @@
                                     type="text" 
                                     x-model="inputText" 
                                     @keydown.enter="sendMessage()" 
-                                    placeholder="พิมพ์ข้อความคุยกับระบบ (หรือทิ้งเบอร์โทรไว้ได้เลย)..." 
+                                    placeholder="พิมพ์ข้อความคุยกับระบบ (หรือฝากเบอร์โทรไว้ได้เลย)..." 
                                     class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
                                 >
                                 <button @click="sendMessage()" class="w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20 transition transform hover:scale-105">
@@ -394,7 +432,7 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">Real-time Traffic Analytics</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
-                        ดูสถิติการเข้าชมแบบเรียลไทม์บนหลังบ้าน ApexDash แยกสัดส่วนระหว่างลูกค้าจริง (Real Buyers) และบอทที่ถูกระบบคัดกรองออกได้อย่างโปร่งใส
+                        ดูสถิติการเข้าชมแบบเรียลไทม์ แยกสัดส่วนระหว่างลูกค้าจริง (Real Buyers) และบอทที่ถูกระบบคัดกรองออกได้อย่างโปร่งใส
                     </p>
                 </div>
 
@@ -551,10 +589,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <div class="lg:col-span-6 space-y-6">
-                    <span class="text-indigo-400 text-xs font-extrabold uppercase tracking-widest bg-indigo-950/80 px-3.5 py-1.5 rounded-full border border-indigo-500/30">เชื่อมต่อข้อมูลไปยังหลังบ้านอัตโนมัติ</span>
+                    <span class="text-indigo-400 text-xs font-extrabold uppercase tracking-widest bg-indigo-950/80 px-3.5 py-1.5 rounded-full border border-indigo-500/30">เริ่มต้นวันนี้</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">พร้อมเพิ่มยอดขายและปกป้องงบแอดของคุณแล้วหรือยัง?</h2>
                     <p class="text-slate-300 text-base leading-relaxed">
-                        กรอกข้อมูลเพื่อให้ทีมงานผู้เชี่ยวชาญจาก Vortex AI & Ads ติดต่อกลับ ข้อมูลของคุณจะถูกส่งไปยังระบบหลังบ้าน <strong class="text-amber-400">ApexDash</strong> ทันทีแบบเรียลไทม์
+                        กรอกข้อมูลเพื่อให้ทีมงานผู้เชี่ยวชาญจาก Vortex AI & Ads ติดต่อกลับ ให้คำปรึกษาฟรี พร้อมสาธิตระบบ AI Chatbot และระบบป้องกันบอท Ads ให้คุณดูแบบตัวต่อตัว
                     </p>
 
                     <div class="space-y-4 pt-2">
@@ -601,7 +639,7 @@
                                 </select>
                             </div>
                             <button type="submit" id="submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition transform hover:-translate-y-0.5 mt-2 flex items-center justify-center gap-2">
-                                <span>ส่งข้อมูลไปยังระบบหลังบ้าน</span>
+                                <span>ส่งข้อมูลติดต่อกลับ</span>
                                 <i class="fa-solid fa-paper-plane text-xs"></i>
                             </button>
                         </form>
@@ -612,7 +650,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer (มีปุ่มไอคอนกุญแจเล็กๆ สำหรับทีมพัฒนาโดยเฉพาะ) -->
     <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
@@ -624,22 +662,38 @@
                 </div>
                 <p class="text-xs text-slate-500">© 2026 Vortex AI & Ads Inc. All rights reserved. ผู้นำด้าน AI Chatbot และระบบป้องกันบอทโฆษณา</p>
                 <div class="flex items-center space-x-4 text-slate-400">
-                    <a href="https://apex-dash-bhv.pages.dev/" target="_blank" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"><i class="fa-solid fa-lock mr-1"></i> Admin Console</a>
                     <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-lg"></i></a>
                     <a href="#" class="hover:text-white transition"><i class="fa-brands fa-line text-lg"></i></a>
                     <a href="#" class="hover:text-white transition"><i class="fa-brands fa-tiktok text-lg"></i></a>
+                    <!-- ปุ่มลับเฉพาะทีมผู้พัฒนา (ต้องกรอกรหัสผ่านก่อนจึงจะเปิดหน้าหลังบ้านได้) -->
+                    <button @click="devAuthModal = true; devError = false; devPass = ''" class="text-slate-700 hover:text-slate-500 transition p-1" title="Developer Console (Ctrl+Shift+A)">
+                        <i class="fa-solid fa-terminal text-xs"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Interactive Chat & Cross-Domain Sync Script -->
+    <!-- Interactive Chat, Developer Auth & Cross-Domain Sync Script -->
     <script>
-        // URL ของหลังบ้าน Cloudflare Pages และ Cloud Storage API
-        const ADMIN_DASHBOARD_URL = 'https://apex-dash-bhv.pages.dev';
-        const DEFAULT_CLOUD_SYNC_URL = localStorage.getItem('vortex_cloud_api') || '';
+        const ADMIN_DASHBOARD_URL = 'https://apex-dash-bhv.pages.dev/';
+        // รหัสผ่านเริ่มต้นสำหรับทีมผู้พัฒนา (สามารถเปลี่ยนได้ตามต้องการ)
+        const DEV_ACCESS_CODE = localStorage.getItem('vortex_dev_passcode') || 'vortex2026';
 
-        // ฟังก์ชันแสดง Toast แทนการใช้ alert()
+        // ฟังก์ชันตรวจสอบรหัสผ่านทีมผู้พัฒนาก่อนเปิดหน้าหลังบ้าน
+        function verifyDeveloperAccess(alpineData) {
+            const currentCode = localStorage.getItem('vortex_dev_passcode') || 'vortex2026';
+            if (alpineData.devPass === currentCode) {
+                alpineData.devAuthModal = false;
+                alpineData.devPass = '';
+                // ส่งสัญญาณปลดล็อกไปยังหลังบ้านและเปิดแท็บใหม่พร้อมแนบ Token ยืนยันตัวตน
+                const authToken = btoa('VORTEX_DEV_AUTH_' + currentCode);
+                window.open(`${ADMIN_DASHBOARD_URL}?dev_token=${encodeURIComponent(authToken)}`, '_blank');
+            } else {
+                alpineData.devError = true;
+            }
+        }
+
         function showToast(title, desc) {
             const toast = document.getElementById('custom-toast');
             document.getElementById('toast-title').innerText = title;
@@ -652,7 +706,6 @@
             }, 4000);
         }
 
-        // ฟังก์ชันเลือกแพ็กเกจจากปุ่มแล้วเลื่อนลงมาที่ฟอร์ม
         function selectPackage(pkgKey) {
             const select = document.getElementById('lead-package');
             if (!select) return;
@@ -670,39 +723,33 @@
             }
         }
 
-        // ฟังก์ชันส่งข้อมูลข้ามโดเมนไปยังหลังบ้าน (ใช้ทั้ง postMessage Bridge, LocalStorage และ Cloud API)
+        // ส่งข้อมูลข้ามโดเมนไปยังหลังบ้านโดยอัตโนมัติ (ทำงานเบื้องหลังโดยที่ลูกค้าไม่ต้องเข้าหลังบ้าน)
         async function syncDataToApexDash(type, payload) {
             const eventData = {
                 source: 'VORTEX_LANDING_PAGE',
-                type: type, // 'NEW_LEAD' หรือ 'CHAT_LOG'
+                type: type,
                 payload: payload,
                 timestamp: new Date().toISOString()
             };
 
-            // 1. บันทึกลง LocalStorage ของโดเมนปัจจุบัน
             const localLeads = JSON.parse(localStorage.getItem('vortex_leads') || '[]');
             if (type === 'NEW_LEAD') {
                 localLeads.unshift(payload);
                 localStorage.setItem('vortex_leads', JSON.stringify(localLeads));
             }
 
-            // 2. ส่งผ่าน Cross-Origin Iframe Bridge ไปยัง https://apex-dash-bhv.pages.dev/
             try {
                 const bridge = document.getElementById('apex-sync-bridge');
                 if (bridge && bridge.contentWindow) {
                     bridge.contentWindow.postMessage(eventData, '*');
                 }
-            } catch (err) {
-                console.warn('Iframe bridge sync notice:', err);
-            }
+            } catch (err) {}
 
-            // 3. ส่งผ่าน BroadcastChannel (กรณีเปิดทดสอบบนโดเมนเดียวกัน)
             try {
                 const bc = new BroadcastChannel('vortex_sync_channel');
                 bc.postMessage(eventData);
             } catch (err) {}
 
-            // 4. หากตั้งค่า Cloud Worker API ไว้ ให้ยิง API ไปเก็บถาวรด้วย
             const apiUrl = localStorage.getItem('vortex_cloud_api');
             if (apiUrl) {
                 try {
@@ -711,13 +758,10 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(eventData)
                     });
-                } catch (err) {
-                    console.warn('Cloud API sync error:', err);
-                }
+                } catch (err) {}
             }
         }
 
-        // จัดการเมื่อลูกค้ากดส่งฟอร์ม Lead
         async function handleSubmit(e) {
             e.preventDefault();
             const nameInput = document.getElementById('lead-name');
@@ -739,25 +783,24 @@
             };
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin"></i> <span>กำลังซิงก์ข้อมูลไปยังหลังบ้าน...</span>';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin"></i> <span>กำลังส่งข้อมูล...</span>';
 
             await syncDataToApexDash('NEW_LEAD', newLead);
 
             setTimeout(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>ส่งข้อมูลไปยังระบบหลังบ้าน</span> <i class="fa-solid fa-paper-plane text-xs"></i>';
-                showToast('ส่งข้อมูลสำเร็จ!', `ข้อมูลของคุณ ${newLead.name} ถูกส่งไปยังหน้าหลังบ้าน ApexDash เรียบร้อยแล้ว`);
+                submitBtn.innerHTML = '<span>ส่งข้อมูลติดต่อกลับ</span> <i class="fa-solid fa-paper-plane text-xs"></i>';
+                showToast('ส่งข้อมูลสำเร็จ!', `ขอบคุณคุณ ${newLead.name} ทีมงานจะรีบติดต่อกลับโดยเร็วที่สุดครับ`);
                 e.target.reset();
             }, 600);
         }
 
-        // ระบบ AI Chatbot Widget
         function chatWidget() {
             return {
                 inputText: '',
                 isTyping: false,
                 messages: [
-                    { id: 1, sender: 'bot', text: 'สวัสดีครับ! ยินดีต้อนรับสู่ Vortex AI & Ads สนใจแพ็กเกจ SME (฿5,989 ต่อเดือน ใช้งานได้สูงสุด 3 เดือน) หรือสอบถามข้อมูลเพิ่มเติมพิมพ์มาได้เลยครับ! (หากพิมพ์เบอร์โทรไว้ ระบบจะส่งให้แอดมินหลังบ้านติดต่อกลับทันทีครับ)', time: '09:00' }
+                    { id: 1, sender: 'bot', text: 'สวัสดีครับ! ยินดีต้อนรับสู่ Vortex AI & Ads สนใจแพ็กเกจ SME (฿5,989 ต่อเดือน ใช้งานได้สูงสุด 3 เดือน) หรือสอบถามข้อมูลเพิ่มเติมพิมพ์มาได้เลยครับ!', time: '09:00' }
                 ],
                 resetChat() {
                     this.messages = [
@@ -774,7 +817,6 @@
                     this.inputText = '';
                     this.scrollToBottom();
 
-                    // ตรวจสอบว่าผู้ใช้พิมพ์เบอร์โทรศัพท์ในแชทหรือไม่ (ถ้ามีให้สร้าง Lead อัตโนมัติไปหลังบ้าน)
                     const phoneMatch = userText.match(/0[689]\d[- ]?\d{3}[- ]?\d{4}/);
                     if (phoneMatch) {
                         const nowDate = new Date();
@@ -788,16 +830,16 @@
                             status: 'รอติดต่อกลับ',
                             source: 'AI Chatbot Widget'
                         });
-                        showToast('บันทึกเบอร์โทรจากแชทแล้ว!', 'ส่งข้อมูลเบอร์โทรไปยังหลังบ้าน ApexDash เรียบร้อย');
+                        showToast('บันทึกเบอร์ติดต่อเรียบร้อย!', 'ทีมงานได้รับเบอร์โทรศัพท์ของคุณแล้วครับ');
                     }
 
                     this.isTyping = true;
                     setTimeout(() => {
                         this.isTyping = false;
-                        let replyText = "ยอดเยี่ยมเลยครับ หากต้องการคำปรึกษาเพิ่มเติม สามารถกรอกแบบฟอร์มด้านล่างหน้าเว็บ หรือพิมพ์เบอร์โทรทิ้งไว้ในแชทนี้เพื่อให้ระบบส่งต่อเข้าหลังบ้าน ApexDash ได้เลยครับ!";
+                        let replyText = "ยอดเยี่ยมเลยครับ หากต้องการคำปรึกษาเพิ่มเติม สามารถกรอกแบบฟอร์มด้านล่างหน้าเว็บ หรือพิมพ์เบอร์โทรทิ้งไว้ในแชทนี้เพื่อให้ทีมงานติดต่อกลับได้เลยครับ!";
                         
                         if (phoneMatch) {
-                            replyText = `ขอบคุณครับ! ระบบ AI ได้ส่งเบอร์ติดต่อ (${phoneMatch[0]}) ไปยังคอนโซลหลังบ้าน ApexDash เรียบร้อยแล้ว ทีมงานจะรีบติดต่อกลับโดยเร็วที่สุดครับ!`;
+                            replyText = `ขอบคุณครับ! ระบบได้รับเบอร์ติดต่อ (${phoneMatch[0]}) เรียบร้อยแล้ว ทีมงานผู้เชี่ยวชาญจะรีบติดต่อกลับโดยเร็วที่สุดครับ!`;
                         } else if (userText.includes('SME') || userText.includes('3 เดือน') || userText.includes('5,989')) {
                             replyText = "แพ็กเกจ SME ราคา ฿5,989 ต่อเดือน (ใช้งานได้สูงสุด 3 เดือน) เป็นโปรโมชันสุดคุ้มสำหรับผู้ใช้งานใหม่ ได้ทั้งเซลเพจกันบอท 3 หน้า และ AI Chatbot คุ้มค่าที่สุดแล้วครับ!";
                         } else if (userText.includes('Chatbot') || userText.includes('แชทบอท')) {
