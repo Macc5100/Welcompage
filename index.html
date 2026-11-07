@@ -68,8 +68,7 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans selection:bg-indigo-500 selection:text-white antialiased overflow-x-hidden" 
-      x-data="{ promoModal: true, devAuthModal: false, devPass: '', devError: false }"
-      @keydown.window.ctrl.shift.a.prevent="devAuthModal = true; devError = false; devPass = ''">
+      x-data="{ promoModal: true }">
 
     <!-- Cross-Domain Sync Bridge (เชื่อมต่อไปยังหลังบ้านอัตโนมัติแบบซ่อน) -->
     <iframe id="apex-sync-bridge" src="https://apex-dash-bhv.pages.dev/" style="display:none;" title="Sync Bridge"></iframe>
@@ -82,45 +81,6 @@
         <div>
             <h4 class="font-bold text-sm" id="toast-title">ส่งข้อมูลสำเร็จ!</h4>
             <p class="text-xs text-slate-300 mt-0.5" id="toast-desc">ทีมงานได้รับข้อมูลของคุณเรียบร้อยแล้ว</p>
-        </div>
-    </div>
-
-    <!-- Developer Security Gate Modal (เข้ารหัสด้วย SHA-256 ไม่มีรหัสผ่านจริงในโค้ด) -->
-    <div x-show="devAuthModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md transition-all" x-transition.opacity>
-        <div @click.away="devAuthModal = false" class="relative max-w-md w-full bg-slate-900 text-white rounded-3xl p-8 shadow-2xl border border-indigo-500/40 overflow-hidden">
-            <button @click="devAuthModal = false" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-xl mb-5">
-                <i class="fa-solid fa-user-shield"></i>
-            </div>
-
-            <div class="flex items-center gap-2 mb-1">
-                <h3 class="text-xl font-extrabold">Developer Access Only</h3>
-                <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full">SHA-256</span>
-            </div>
-            <p class="text-slate-400 text-xs mb-6">ระบบตรวจสอบด้วย Cryptographic Hash ไม่มีรหัสผ่านPlaintext เก็บไว้ในซอร์สโค้ด</p>
-
-            <form @submit.prevent="verifyDeveloperAccess($data)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Developer Access Code</label>
-                    <input type="password" x-model="devPass" @input="devError = false" placeholder="••••••••••••" required autofocus
-                           class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition tracking-widest">
-                    <p x-show="devError" class="text-rose-400 text-xs mt-2 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-exclamation"></i> รหัสผ่านไม่ถูกต้อง เฉพาะทีมผู้พัฒนาที่ได้รับอนุญาตเท่านั้น
-                    </p>
-                </div>
-
-                <div class="flex gap-3 pt-2">
-                    <button type="button" @click="devAuthModal = false" class="flex-1 py-3 rounded-xl font-bold text-slate-300 bg-white/10 hover:bg-white/15 transition text-xs">
-                        ยกเลิก
-                    </button>
-                    <button type="submit" class="flex-1 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/30 transition text-xs flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-unlock-keyhole"></i> ยืนยันเข้าหลังบ้าน
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -668,41 +628,16 @@
                     <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-lg"></i></a>
                     <a href="#" class="hover:text-white transition"><i class="fa-brands fa-line text-lg"></i></a>
                     <a href="#" class="hover:text-white transition"><i class="fa-brands fa-tiktok text-lg"></i></a>
-                    <!-- ปุ่มลับเฉพาะทีมผู้พัฒนา (ใช้ SHA-256 Hash ไม่มีรหัสผ่านจริงในโค้ด) -->
-                    <button @click="devAuthModal = true; devError = false; devPass = ''" class="text-slate-800 hover:text-slate-600 transition p-1" title="Developer Console (Ctrl+Shift+A)">
+                    <a href="https://apex-dash-bhv.pages.dev/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-indigo-500 transition p-1" title="เปิดหน้าหลังบ้าน">
                         <i class="fa-solid fa-terminal text-[10px]"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Interactive Chat, SHA-256 Zero-Plaintext Auth & Cross-Domain Sync Script -->
+    <!-- Interactive Chat & Cross-Domain Sync Script -->
     <script>
-        const ADMIN_DASHBOARD_URL = 'https://apex-dash-bhv.pages.dev/';
-        // เก็บเฉพาะค่า SHA-256 Hash เท่านั้น (ไม่มีรหัสผ่าน Plaintext อยู่ในโค้ดเลยแม้แต่ตัวเดียว)
-        const DEFAULT_DEV_HASH = 'c3c8617a10627bf2528f53e25cbfe3c2cf76a61957292bf9b372fd974bd8f523';
-
-        // ฟังก์ชันแปลงข้อความเป็น SHA-256 Hash ด้วย Web Crypto API
-        async function sha256Hash(str) {
-            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // ตรวจสอบรหัสผ่านด้วย SHA-256 Hash ก่อนเปิดหน้าหลังบ้าน
-        async function verifyDeveloperAccess(alpineData) {
-            const expectedHash = localStorage.getItem('vortex_dev_hash') || DEFAULT_DEV_HASH;
-            const inputHash = await sha256Hash(alpineData.devPass.trim());
-
-            if (inputHash === expectedHash) {
-                alpineData.devAuthModal = false;
-                alpineData.devPass = '';
-                window.open(`${ADMIN_DASHBOARD_URL}?dev_hash=${encodeURIComponent(inputHash)}`, '_blank');
-            } else {
-                alpineData.devError = true;
-            }
-        }
-
         function showToast(title, desc) {
             const toast = document.getElementById('custom-toast');
             document.getElementById('toast-title').innerText = title;
