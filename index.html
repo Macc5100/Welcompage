@@ -1,606 +1,830 @@
 <!DOCTYPE html>
 <html lang="th" class="scroll-smooth">
 <head>
-<!-- UserWay Accessibility Widget placed as the first element in head -->
-<script src="https://cdn.userway.org/widget.js" data-account="YRHAej4Wpc"></script>
-​<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vortex AI & Ads - AI Chatbot & Anti-Bot Sales Pages for Media Buyers</title>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- FontAwesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Alpine.js -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-fontFamily: {
-sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-},
-animation: {
-'blob': 'blob 7s infinite',
-'float': 'float 3s ease-in-out infinite',
-'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-},
-keyframes: {
-blob: {
-'0%': { transform: 'translate(0px, 0px) scale(1)' },
-'33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-'66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-'100%': { transform: 'translate(0px, 0px) scale(1)' },
-},
-float: {
-'0%, 100%': { transform: 'translateY(0)' },
-'50%': { transform: 'translateY(-10px)' }
-}
-}
-}
-}
-}
-</script>
-<style>
-.glass-card {
-background: rgba(255, 255, 255, 0.75);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(255, 255, 255, 0.4);
-}
-.dark-glass {
-background: rgba(15, 23, 42, 0.8);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.chat-scrollbar::-webkit-scrollbar {
-width: 6px;
-}
-.chat-scrollbar::-webkit-scrollbar-track {
-background: transparent;
-}
-.chat-scrollbar::-webkit-scrollbar-thumb {
-background: rgba(156, 163, 175, 0.5);
-border-radius: 9999px;
-}
-</style>
+    <!-- UserWay Accessibility Widget placed as the first element in head -->
+    <script src="https://cdn.userway.org/widget.js" data-account="YRHAej4Wpc"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex AI & Ads - AI Chatbot & Anti-Bot Sales Pages for Media Buyers</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark-glass {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .chat-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 9999px;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans selection:bg-indigo-500 selection:text-white antialiased overflow-x-hidden" x-data="{ promoModal: true }">
-​<!-- Promotional Welcome Modal Popup -->
-<div x-show="promoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm transition-all" x-transition.opacity>
-<div @click.away="promoModal = false" class="relative max-w-lg w-full bg-gradient-to-br from-indigo-950 via-slate-900 to-violet-950 text-white rounded-3xl p-8 shadow-2xl border border-indigo-500/40 text-center overflow-hidden">
-<div class="absolute -right-16 -top-16 w-48 h-48 bg-indigo-500/30 rounded-full blur-3xl"></div>
-​<button @click="promoModal = false" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">
-<i class="fa-solid fa-xmark"></i>
-</button>
-​<span class="inline-block bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-4 shadow-md">
-🔥 พิเศษสำหรับเจ้าของธุรกิจ / SME
-</span>
-​<h3 class="text-2xl sm:text-3xl font-extrabold mb-3 leading-snug">
-ยกระดับยอดขาย SME
-</h3>
-​<p class="text-indigo-200 text-sm mb-6 leading-relaxed">
-คุ้มสุดๆ! เปิดรับสมัครระบบ AI Bot + AI Chatbot ในราคา <span class="text-amber-400 font-bold text-lg">฿5,989 ตลอดชีพ</span> (พิเศษใช้ได้นาน 3 ตลอดชีพ)
-</p>
-​<div class="bg-white/10 rounded-2xl p-4 mb-6 text-left space-y-2 text-xs text-slate-200 border border-white/10">
-<div class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> เปิดใช้งานเซลส์เพจ 3 ช่อง + ระบบ Anti-Bot</div>
-<div class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> AI Chatbot ตอบกลับ 24 ชม. (เชื่อมต่อตลอดชีพ)</div>
-<div class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> การันตีเพิ่มยอดขายคูณสองเท่าจากทริฟฟิกจริง</div>
-</div>
-​<div class="flex flex-col sm:flex-row gap-3">
-<a href="#pricing" @click="promoModal = false" class="flex-1 py-3.5 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 shadow-lg shadow-indigo-500/30 transition text-sm text-center">
-ดูแพ็กเกจโปรโมชัน
-</a>
-<button @click="promoModal = false" class="px-5 py-3.5 rounded-xl font-bold text-slate-300 bg-white/10 hover:bg-white/20 transition text-sm">
-ปิดหน้าต่างนี้
-</button>
-</div>
-</div>
-</div>
-​<!-- Background Decorative Gradients -->
-<div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-40">
-<div class="absolute top-0 -left-4 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-<div class="absolute top-1/3 -right-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-<div class="absolute -bottom-8 left-1/3 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-</div>
-​<!-- Navigation Header -->
-<header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 border-b border-slate-100 transition-all duration-300">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
-<i class="fa-solid fa-shield-halved text-lg"></i>
-</div>
-<div>
-<span class="text-xl font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Vortex AI & Ads</span>
-<span class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider">AI & Ad Security Solutions</span>
-</div>
-</div>
-​<!-- Desktop Nav -->
-<nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
-<a href="#services" class="hover:text-indigo-600 transition">บริการของเรา</a>
-<a href="#chatbot-demo" class="hover:text-indigo-600 transition">ทดลองบอทแชท</a>
-<a href="#antibot" class="hover:text-indigo-600 transition">ระบบป้องกัน Ads Bot</a>
-<a href="#pricing" class="hover:text-indigo-600 transition">แพ็กเกจราคา</a>
-<!-- เชื่อมต่อไปยังหลังบ้านที่ลิงก์จริง -->
-<a href="https://apex-dash-bhv.pages.dev/?auth=secure_token_vortex" target="_blank" class="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 font-bold">
-<i class="fa-solid fa-lock text-xs"></i> หลังบ้าน
-</a>
-</nav>
-​<div class="flex items-center space-x-4">
-<a href="#contact" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition shadow-sm">
-ติดต่อทีมงาน
-</a>
-<a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25 transition transform hover:-translate-y-0.5">
-ปรึกษาผู้เชี่ยวชาญทันที <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-</a>
-</div>
-</div>
-</header>
-​<!-- Hero Section -->
-<section class="relative z-10 pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-​<!-- Hero Left text -->
-<div class="lg:col-span-6 text-center lg:text-left space-y-6">
-<div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-wider animate-pulse">
-<span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-<span>โปรโมชันพิเศษ SME ตลอดชีพ (฿5,989 ตลอดชีพ ใช้ได้นาน 3 ตลอดชีพ)</span>
-</div>
-​<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
-เปลี่ยนโฉมเว็บไซต์ <span class="bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-600 bg-clip-text text-transparent">AI Chatbot</span> พร้อมเกราะป้องกัน <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Anti-Bot Shield</span>
-</h1>
-​<p class="text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal">
-เครื่องมือจัดการธุรกิจออนไลน์ 24 ชม. ช่วยคุณประหยัดค่าแอดด้วยระบบกรองบอทปลอม ป้องกัน Click Fraud เสียหายจาก Ads Facebook, Google และ TikTok อย่างแม่นยำ
-</p>
-​<div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
-<a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-xl shadow-indigo-500/30 transition transform hover:-translate-y-1 text-center">
-<i class="fa-solid fa-fire mr-2"></i> สมัครแพ็กเกจ SME (฿5,989/ตลอดชีพ)
-</a>
-<a href="#chatbot-demo" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition shadow-sm text-center">
-ทดลองบอทแชท
-</a>
-</div>
-​<!-- Trust indicators -->
-<div class="pt-6 border-t border-slate-200/60 flex items-center justify-center lg:justify-start space-x-6 text-slate-400 text-xs font-semibold">
-<div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> รองรับ Enterprise</div>
-<div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> ติดตั้งง่ายไม่ต้องเขียนโค้ด</div>
-<div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> ซัพพอร์ตดูแล 5 วัน</div>
-</div>
-</div>
-​<!-- Hero Right: Interactive Chat UI Simulation -->
-<div class="lg:col-span-6">
-<div class="relative max-w-md mx-auto lg:max-w-none">
-<div class="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-3xl blur-xl opacity-30 animate-pulse-slow"></div>
-​<div class="relative glass-card rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px] border border-white/60">
-​<!-- Chat Header -->
-<div class="bg-gradient-to-r from-indigo-600 to-violet-600 p-4 text-white flex items-center justify-between shadow-md">
-<div class="flex items-center space-x-3">
-<div class="relative">
-<div class="w-10 h-10 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center font-bold text-white border border-white/30">
-<i class="fa-solid fa-robot"></i>
-</div>
-<span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-indigo-600 rounded-full"></span>
-</div>
-<div>
-<h3 class="font-bold text-sm leading-snug">Vortex Assistant</h3>
-<p class="text-xs text-indigo-100 flex items-center">
-<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> AI ผู้ช่วยอัจฉริยะออนไลน์ 24 ชม.
-</p>
-</div>
-</div>
-<div class="flex items-center space-x-2 text-white/80">
-<button class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition"><i class="fa-solid fa-rotate-right text-xs"></i></button>
-</div>
-</div>
-​<!-- Chat Messages Body -->
-<div id="chat-messages" x-data="chatWidget()" class="flex-1 p-4 overflow-y-auto space-y-4 chat-scrollbar bg-slate-50/50">
-<template x-for="msg in messages" :key="msg.id">
-<div :class="msg.sender === 'user' ? 'flex justify-end' : 'flex items-start space-x-2'">
-<template x-if="msg.sender === 'bot'">
-<div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center text-xs shadow-md">
-<i class="fa-solid fa-robot"></i>
-</div>
-</template>
-​<div :class="msg.sender === 'user' ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-md max-w-[80%] text-sm font-medium' : 'bg-white text-slate-700 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100 max-w-[80%] text-sm font-medium'">
-<p x-text="msg.text" class="leading-relaxed"></p>
-<span :class="msg.sender === 'user' ? 'text-indigo-200 text-[10px] block text-right mt-1' : 'text-slate-400 text-[10px] block text-right mt-1'" x-text="msg.time"></span>
-</div>
-</div>
-</template>
-​<!-- Typing Indicator -->
-<template x-if="isTyping">
-<div class="flex items-start space-x-2">
-<div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center text-xs shadow-md">
-<i class="fa-solid fa-robot"></i>
-</div>
-<div class="bg-white text-slate-500 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100 text-sm flex items-center space-x-1.5">
-<span class="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></span>
-<span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-<span class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-</div>
-</div>
-</template>
-</div>
-​<!-- Quick Prompts -->
-<div class="p-2 bg-white/80 border-t border-slate-100 flex gap-2 overflow-x-auto no-scrollbar">
-<button @click="sendQuickPrompt('🔥 สมัครแพ็กเกจ SME 3 ตลอดชีพ')" class="whitespace-nowrap px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-full text-xs font-semibold transition border border-amber-200">
-🔥 แพ็กเกจ SME (฿5,989/ตลอดชีพ)
-</button>
-<button @click="sendQuickPrompt('🛡️ วิธีป้องกันบอท Ads ทำอย่างไร?')" class="whitespace-nowrap px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-full text-xs font-semibold transition border border-emerald-100">
-🛡️ ป้องกันบอท Ads
-</button>
-<button @click="sendQuickPrompt('💰 ขอราคาแพ็กเกจบริการ')" class="whitespace-nowrap px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-full text-xs font-semibold transition border border-indigo-100">
-💰 รายละเอียดราคา
-</button>
-</div>
-​<!-- Chat Input Box -->
-<div class="p-3 bg-white border-t border-slate-100 flex items-center space-x-2">
-<input
-type="text"
-x-model="inputText"
-@keydown.enter="sendMessage()"
-placeholder="พิมพ์คำถามเกี่ยวกับระบบป้องกัน..."
-class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
->
-<button @click="sendMessage()" class="w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20 transition transform hover:scale-105">
-<i class="fa-solid fa-paper-plane text-xs"></i>
-</button>
-</div>
-​</div>
-</div>
-</div>
-​</div>
-</div>
-</section>
-​<!-- Core Services Section -->
-<section id="services" class="py-20 bg-white relative z-10 border-t border-slate-100">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-<span class="text-indigo-600 text-xs font-extrabold uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">บริการหลัก Vortex AI & Ads</span>
-<h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">2 โซลูชันทรงพลังเพื่อเพิ่มยอดขายและคุ้มครองค่าแอด</h2>
-<p class="text-slate-600 text-base">ออกแบบมาเพื่อช่วยเหลือนักยิงแอด, เจ้าของแบรนด์ และพ่อค้าแม่ค้าออนไลน์ ให้สามารถเพิ่มยอดขายพร้อมตัดวงจรอุบาทว์คลิกปลอม</p>
-</div>
-​<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-​<!-- Service Card 1: AI Chatbot -->
-<div id="chatbot-demo" class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-50 to-indigo-50/50 border border-indigo-100 hover:shadow-2xl hover:shadow-indigo-500/10 transition duration-300 flex flex-col justify-between">
-<div>
-<div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl mb-6 shadow-lg shadow-indigo-500/30">
-<i class="fa-solid fa-robot"></i>
-</div>
-<span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-100 px-3 py-1 rounded-full">Service 01</span>
-<h3 class="text-2xl font-extrabold text-slate-900 mt-3 mb-4">AI Chatbot ผู้ช่วยตอบแชทอัจฉริยะ</h3>
-<p class="text-slate-600 text-sm leading-relaxed mb-6">
-ระบบ AI ตอบแชทอัจฉริยะที่เข้าใจสินค้าของคุณอย่างลึกซึ้ง ทำหน้าที่ปิดการขาย ตรวจสอบสต็อกสินค้า ตลอดจนตอบคำถามลูกค้าได้ตลอด 24 ชั่วโมง โดยไม่ต้องใช้คนเฝ้าหน้าจอ
-</p>
-​<ul class="space-y-3 mb-8 text-sm text-slate-700">
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2.5"></i> ฝึกสอนด้วยข้อมูลสินค้าและบริการของคุณ</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2.5"></i> ตอบไวทันใจ ปิดการขายได้รวดเร็วยิ่งขึ้น</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2.5"></i> เชื่อมต่อโซเชียลมีเดียชั้นนำครบวงจร</li>
-</ul>
-</div>
-​<a href="#contact" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 transition">
-ปรึกษาติดตั้ง AI Chatbot <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-</a>
-</div>
-​<!-- Service Card 2: High-Performance Sales Page + Anti-Bot Shield -->
-<div id="antibot" class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-50 to-emerald-50/50 border border-emerald-100 hover:shadow-2xl hover:shadow-emerald-500/10 transition duration-300 flex flex-col justify-between">
-<div>
-<div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl mb-6 shadow-lg shadow-emerald-500/30">
-<i class="fa-solid fa-shield-cat"></i>
-</div>
-<span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">Service 02</span>
-<h3 class="text-2xl font-extrabold text-slate-900 mt-3 mb-4">High-Performance Sales Page + Anti-Bot Shield</h3>
-<p class="text-slate-600 text-sm leading-relaxed mb-6">
-เซลส์เพจความเร็วสูงพร้อมระบบป้องกันบอทโฆษณา, Ad Reviewer จากแพลตฟอร์ม และ Click Fraud ช่วยป้องกันการแบนโฆษณา รักษาเงินในกระเป๋าของคุณได้ 100%
-</p>
-​<ul class="space-y-3 mb-8 text-sm text-slate-700">
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> ตรวจจับและบล็อก AI Bot ตรวจสอบโฆษณาอัตโนมัติ</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> ป้องกัน Click Fraud จากคู่แข่งและปุ่มคลิกขยะ (FB, Google, TikTok)</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> โครงสร้างความปลอดภัย Cloudflare Edge ระดับท็อป</li>
-</ul>
-</div>
-​<a href="#contact" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-500/20 transition">
-สอบถามระบบป้องกัน Ads <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-</a>
-</div>
-​</div>
-</div>
-</section>
-​<!-- Deep Dive: Anti-Bot & Click Fraud Protection Features -->
-<section class="py-20 bg-slate-900 text-white relative overflow-hidden">
-<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-​<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-<span class="text-emerald-400 text-xs font-extrabold uppercase tracking-widest bg-emerald-950 px-3.5 py-1.5 rounded-full border border-emerald-500/30">อาวุธลับ Media Buyer</span>
-<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">ทำไมยิงแอด Facebook, Google, TikTok ถึงต้องใช้ระบบป้องกันบอทและคลิกปลอม?</h2>
-<p class="text-slate-300 text-base">ปัญหาใหญ่ของนักยิงแอดคือ ค่าแอดแพงขึ้น แต่ยอดขายไม่โต เกิดจากการถูกคลิกปลอมจากบอทคู่แข่งหรือบอทตรวจสอบโฆษณา ทางออกเดียวคือต้องมีเกราะป้องกันระดับโครงสร้างโครงข่ายอินเทอร์เน็ต</p>
-</div>
-​<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-​<div class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
-<div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-6">
-<i class="fa-solid fa-robot"></i>
-</div>
-<h3 class="text-xl font-bold mb-3">AI Bot & Crawler Filter</h3>
-<p class="text-slate-400 text-sm leading-relaxed">
-ตรวจสอบสคริปต์บอทตรวจจับโฆษณาจากแพลตฟอร์มต่างๆ พร้อมแยกสคริปต์บอทและเบราว์เซอร์ปลอมออกจากการเข้าชมจริงได้ 100%
-</p>
-</div>
-​<div class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
-<div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-6">
-<i class="fa-solid fa-hand-holding-dollar"></i>
-</div>
-<h3 class="text-xl font-bold mb-3">Click Fraud Protection</h3>
-<p class="text-slate-400 text-sm leading-relaxed">
-ป้องกันคลิกซ้ำจากไอดีเดิมหรือบัญชีที่เจตนาคลิกเผาผลาญงบโฆษณา บล็อกทันทีด้วยระบบตรวจจับ IP & Fingerprint Tracking
-</p>
-</div>
-​<div class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
-<div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-6">
-<i class="fa-solid fa-chart-pie"></i>
-</div>
-<h3 class="text-xl font-bold mb-3">Real-time Traffic Analytics</h3>
-<p class="text-slate-400 text-sm leading-relaxed">
-แดชบอร์ดรายงานผลแบบเรียลไทม์ แยกสัดส่วนระหว่างผู้ซื้อจริง (Real Buyers) และบอทที่พยายามเข้ามาโจมตีโฆษณาของคุณได้อย่างแม่นยำ
-</p>
-</div>
-​</div>
-</div>
-</section>
-​<!-- Pricing Section -->
-<section id="pricing" class="py-20 bg-white relative z-10">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-<span class="text-indigo-600 text-xs font-extrabold uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">แพ็กเกจราคาค่าบริการ</span>
-<h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">เลือกแพ็กเกจราคาตามขนาดธุรกิจของคุณ</h2>
-<p class="text-slate-600 text-base">เรามีบริการทั้งแบบแยกส่วนและแพ็กเกจเหมาจ่ายสุดคุ้ม เพื่อช่วยให้คุณประหยัดงบและสร้างกำไรสูงสุด</p>
-</div>
-​<!-- Pinned Featured Package: SME Starter 3 Months (5,989 Baht/month) -->
-<div class="mb-16">
-<div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-950 via-slate-900 to-violet-950 text-white shadow-2xl relative border-2 border-indigo-500 overflow-hidden">
-<div class="absolute -right-10 -bottom-10 w-60 h-60 bg-amber-500/20 rounded-full blur-3xl"></div>
-​<div class="absolute top-6 right-6 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider flex items-center space-x-1.5">
-<i class="fa-solid fa-fire"></i> <span>ยอดนิยมสำหรับ SME / พ่อค้าแม่ค้าออนไลน์</span>
-</div>
-​<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-<div class="lg:col-span-8 space-y-4">
-<span class="text-xs font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 px-3 py-1 rounded-full border border-amber-500/30">
-แพ็กเกจคุ้มค่าที่สุด (พิเศษใช้ได้นาน 3 ตลอดชีพ)
-</span>
-<h3 class="text-3xl sm:text-4xl font-extrabold">SME Starter & Growth Package</h3>
-<p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-โซลูชันสำเร็จรูปสำหรับธุรกิจขนาดกลางและเล็ก รวมระบบป้องกัน Anti-Bot และ AI Chatbot อัจฉริยะ ตอบแชท 24 ชม.
-</p>
-​<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-slate-200">
-<span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> เซลส์เพจ Anti-Bot 3 ช่อง (Cloudflare Edge)</span>
-<span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> AI Chatbot ตอบแชทอัตโนมัติ 24 ชม.</span>
-<span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> ระบบ Real-time Traffic Analytics</span>
-<span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> ซัพพอร์ตติดตั้งและดูแลตลอดการใช้งาน</span>
-</div>
-</div>
-​<div class="lg:col-span-4 flex flex-col items-start lg:items-end justify-center space-y-4 lg:border-l lg:border-white/10 lg:pl-8">
-<div>
-<span class="text-slate-400 text-xs block">อัตราค่าบริการแพ็กเกจพิเศษ</span>
-<div class="flex items-baseline">
-<span class="text-4xl sm:text-5xl font-extrabold text-amber-400">฿5,989</span>
-<span class="text-indigo-200 ml-2 text-xs font-semibold">/ ตลอดชีพ</span>
-</div>
-<span class="text-amber-300 text-[11px] block mt-1 font-medium">(พิเศษใช้ได้นาน 3 ตลอดชีพ)</span>
-</div>
-<a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-slate-950 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 shadow-xl shadow-amber-500/20 transition text-center text-sm transform hover:-translate-y-0.5">
-สมัครแพ็กเกจ SME ทันที <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
-</a>
-</div>
-</div>
-</div>
-</div>
-​<!-- Standalone Services Grid -->
-<div class="mb-12">
-<h3 class="text-xl font-extrabold text-slate-900 mb-6 flex items-center"><i class="fa-solid fa-layer-group text-indigo-600 mr-2"></i> บริการแยกตามความต้องการ (Standalone Services)</h3>
-​<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-​<!-- Anti-Bot Sales Page Starter -->
-<div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-<div>
-<span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-2.5 py-1 rounded-full">Anti-Bot Page</span>
-<h4 class="text-lg font-extrabold text-slate-900 mt-3 mb-2">Starter</h4>
-<div class="flex items-baseline mb-4">
-<span class="text-3xl font-extrabold text-slate-900">฿1,990</span>
-<span class="text-slate-500 ml-1.5 text-xs">/ ตลอดชีพ</span>
-</div>
-<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> 1 เซลส์เพจความปลอดภัย (Cloudflare Edge)</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> ระบบกรอง AI Bot & Block IP พื้นฐาน</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> รองรับปริมาณผู้เข้าชม 10,000 Visits / ตลอดชีพ</li>
-</ul>
-</div>
-<a href="#contact" class="w-full py-3 rounded-xl font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 transition text-center text-xs">สมัครใช้งานทันที</a>
-</div>
-​<!-- Anti-Bot Sales Page Pro/Scale -->
-<div class="p-6 rounded-3xl bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow-xl flex flex-col justify-between relative border border-emerald-500/30">
-<div class="absolute -top-3 right-6 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-md uppercase tracking-wider">
-แนะนำสำหรับมืออาชีพ
-</div>
-<div>
-<span class="text-xs font-bold text-emerald-300 uppercase tracking-widest bg-emerald-950 px-2.5 py-1 rounded-full">Anti-Bot Page</span>
-<h4 class="text-lg font-extrabold text-white mt-3 mb-2">Pro / Scale</h4>
-<div class="flex items-baseline mb-4">
-<span class="text-3xl font-extrabold text-white">฿9,990</span>
-<span class="text-emerald-200 ml-1.5 text-xs">/ ตลอดชีพ</span>
-</div>
-<ul class="space-y-2.5 mb-6 text-xs text-slate-200">
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> ปลดล็อก 3 เซลส์เพจความปลอดภัย</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Advanced Anti-Bot & Fingerprint Shield ขั้นสูง</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Real-time Analytics & Log วิเคราะห์ Real User vs Bot</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> รองรับปริมาณผู้เข้าชม 50,000 Visits / ตลอดชีพ</li>
-</ul>
-</div>
-<a href="#contact" class="w-full py-3 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition text-center text-xs shadow-md">สมัคร Pro Scale</a>
-</div>
-​<!-- AI Chatbot Starter -->
-<div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-<div>
-<span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-100 px-2.5 py-1 rounded-full">AI Chatbot</span>
-<h4 class="text-lg font-extrabold text-slate-900 mt-3 mb-2">Starter</h4>
-<div class="flex items-baseline mb-4">
-<span class="text-3xl font-extrabold text-slate-900">฿790</span>
-<span class="text-slate-500 ml-1.5 text-xs">/ ตลอดชีพ</span>
-</div>
-<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> 1 บัญชีบอท / LINE OA</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ตอบข้อความอัตโนมัติรองรับ 2,000 ข้อความ / ตลอดชีพ</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ตั้งค่าปุ่มด่วน Quick Prompts เบื้องต้น</li>
-</ul>
-</div>
-<a href="#contact" class="w-full py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition text-center text-xs">สมัครใช้งานทันที</a>
-</div>
-​<!-- AI Chatbot Business -->
-<div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-<div>
-<span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-100 px-2.5 py-1 rounded-full">AI Chatbot</span>
-<h4 class="text-lg font-extrabold text-slate-900 mt-3 mb-2">Business</h4>
-<div class="flex items-baseline mb-4">
-<span class="text-3xl font-extrabold text-slate-900">฿2,890</span>
-<span class="text-slate-500 ml-1.5 text-xs">/ ตลอดชีพ</span>
-</div>
-<ul class="space-y-2.5 mb-6 text-xs text-slate-700">
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> บอทหลายช่องทางตอบอัตโนมัติ (FB / LINE / Web)</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ตอบข้อความอัตโนมัติรองรับ 10,000 ข้อความ / ตลอดชีพ</li>
-<li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ระบบโอนสายคุยกับมนุษย์ (Human Handover)</li>
-</ul>
-</div>
-<a href="#contact" class="w-full py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition text-center text-xs">สมัครใช้งานทันที</a>
-</div>
-​</div>
-</div>
-​</div>
-</section>
-​<!-- Lead Capture / Contact Form Section -->
-<section id="contact" class="py-20 bg-gradient-to-br from-indigo-900 via-slate-900 to-violet-950 text-white relative overflow-hidden">
-<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-​<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-​<div class="lg:col-span-6 space-y-6">
-<span class="text-indigo-400 text-xs font-extrabold uppercase tracking-widest bg-indigo-950/80 px-3.5 py-1.5 rounded-full border border-indigo-500/30">ติดต่อเราเพื่อเริ่มต้น</span>
-<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">พร้อมปกป้องค่าแอดและเพิ่มยอดขายให้ธุรกิจของคุณหรือยัง?</h2>
-<p class="text-slate-300 text-base leading-relaxed">
-กรอกข้อมูลชื่อและเบอร์โทรศัพท์เพื่อรับคำปรึกษาฟรี ทีมงาน Vortex AI & Ads พร้อมช่วยเหลือคุณตั้งค่าระบบ AI Chatbot และระบบป้องกันบอทโฆษณาอย่างมืออาชีพ
-</p>
-​<div class="space-y-4 pt-2">
-<div class="flex items-start space-x-3">
-<div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
-<div>
-<h4 class="font-bold text-sm">บริการติดตั้งและตั้งค่าระบบให้พร้อมใช้งาน</h4>
-<p class="text-xs text-slate-400">ทีมงานช่วยดูแลเซ็ตอัพเชื่อมต่อระบบให้ตั้งแต่ต้นจนจบ</p>
-</div>
-</div>
-<div class="flex items-start space-x-3">
-<div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
-<div>
-<h4 class="font-bold text-sm">ตรวจสอบประสิทธิภาพความปลอดภัยตลอด 24 ชม.</h4>
-<p class="text-xs text-slate-400">ระบบคลาวด์อีจ์ความเร็วสูงไม่มีวันล่ม</p>
-</div>
-</div>
-</div>
-</div>
-​<div class="lg:col-span-6">
-<div class="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-8 shadow-2xl">
-<h3 class="text-xl font-bold mb-6 text-white flex items-center">
-<i class="fa-solid fa-paper-plane text-indigo-400 mr-2.5"></i> ลงทะเบียนรับสิทธิ์ / ปรึกษาผู้เชี่ยวชาญ
-</h3>
-​<form onsubmit="handleSubmit(event)" class="space-y-4">
-<div>
-<label class="block text-xs font-semibold text-slate-300 mb-1.5">ชื่อ-นามสกุล / ชื่อแบรนด์ธุรกิจ</label>
-<input type="text" required placeholder="กรอกชื่อหรือชื่อแบรนด์ของคุณ" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-300 mb-1.5">เบอร์โทรศัพท์ติดต่อกลับ</label>
-<input type="tel" required placeholder="089xxxxxxx" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-300 mb-1.5">บริการที่สนใจ</label>
-<select class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-<option class="bg-slate-900 text-white" value="sme-package">🔥 แพ็กเกจ SME Starter (฿5,989/ตลอดชีพ ใช้ได้นาน 3 ตลอดชีพ) [แนะนำ]</option>
-<option class="bg-slate-900 text-white" value="chatbot">AI Chatbot ผู้ช่วยตอบแชทอัจฉริยะ</option>
-<option class="bg-slate-900 text-white" value="antibot">เซลส์เพจ + ระบบป้องกันบอท AI / Click Fraud</option>
-</select>
-</div>
-<button type="submit" class="w-full py-4 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition transform hover:-translate-y-0.5 mt-2">
-ส่งข้อมูลเพื่อรับบริการ
-</button>
-</form>
-</div>
-</div>
-​</div>
-</div>
-</section>
-​<!-- Footer -->
-<footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-<div class="flex items-center space-x-3">
-<div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
-<i class="fa-solid fa-shield-halved text-sm"></i>
-</div>
-<span class="text-lg font-bold text-white">Vortex AI & Ads</span>
-</div>
-<p class="text-xs text-slate-500">© 2026 Vortex AI & Ads Inc. All rights reserved. บริการระบบ AI Chatbot และระบบป้องกันบอทโฆษณาตลอดชีพ</p>
-<div class="flex space-x-4 text-slate-400">
-<a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-lg"></i></a>
-<a href="#" class="hover:text-white transition"><i class="fa-brands fa-line text-lg"></i></a>
-<a href="#" class="hover:text-white transition"><i class="fa-brands fa-tiktok text-lg"></i></a>
-</div>
-</div>
-</div>
-</footer>
-​<!-- Interactive Chat Script & Logic -->
-<script>
-function chatWidget() {
-return {
-inputText: '',
-isTyping: false,
-messages: [
-{ id: 1, sender: 'bot', text: 'สวัสดีค่ะ! ยินดีต้อนรับสู่ Vortex AI & Ads บริการสมัครแพ็กเกจ SME (฿5,989 ตลอดชีพ ใช้ได้นาน 3 ตลอดชีพ) มีอะไรให้ผู้ช่วยอัจฉริยะช่วยเหลือไหมคะ?', time: '09:00' }
-],
-sendMessage() {
-if (!this.inputText.trim()) return;
-​const userText = this.inputText;
-const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-​this.messages.push({ id: Date.now(), sender: 'user', text: userText, time: now });
-this.inputText = '';
-this.scrollToBottom();
-​this.isTyping = true;
-setTimeout(() => {
-this.isTyping = false;
-let replyText = "ยอดเยี่ยมมากค่ะ ระบบป้องกันบอทและ AI Chatbot จะช่วยเพิ่มยอดขายและเซฟเงินค่าแอดให้ธุรกิจของคุณอย่างคุ้มค่าที่สุด!";
-​if (userText.includes('SME') || userText.includes('3 ตลอดชีพ') || userText.includes('5,989')) {
-replyText = "แพ็กเกจ SME ราคา ฿5,989 ตลอดชีพ (ใช้ได้นาน 3 ตลอดชีพ) คุ้มค่าที่สุดเพราะได้ทั้งเซลส์เพจ Anti-Bot 3 ช่อง และ AI Chatbot ตอบแชทอัตโนมัติค่ะ!";
-} else if (userText.includes('Chatbot') || userText.includes('บอทแชท')) {
-replyText = "AI Chatbot ช่วยตอบแชทลูกค้าบน LINE/FB และเว็บไซต์อัตโนมัติ 24 ชม. สนใจสมัครใช้งานแพ็กเกจไหนดีคะ?";
-} else if (userText.includes('ป้องกันบอท') || userText.includes('Ads') || userText.includes('คลิก')) {
-replyText = "ระบบ Anti-Bot Shield ช่วยกรองบอทตรวจจับโฆษณาและ Click Fraud บน FB, Google, TikTok ป้องกันไม่ให้โดนแบนโฆษณาฟรีๆ ค่ะ!";
-} else if (userText.includes('ราคา') || userText.includes('แพ็กเกจ')) {
-replyText = "แพ็กเกจ SME ราคา ฿5,989 ตลอดชีพ (ใช้ได้นาน 3 ตลอดชีพ) หรือบริการแยก Anti-Bot เริ่มต้นเพียง ฿1,990 ตลอดชีพค่ะ สนใจรับสิทธิ์ไหมคะ?";
-}
-​this.messages.push({ id: Date.now() + 1, sender: 'bot', text: replyText, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-this.scrollToBottom();
-}, 1000);
-},
-sendQuickPrompt(text) {
-this.inputText = text;
-this.sendMessage();
-},
-scrollToBottom() {
-this.$nextTick(() => {
-const container = document.getElementById('chat-messages');
-container.scrollTop = container.scrollHeight;
-});
-}
-}
-}
-​function handleSubmit(e) {
-e.preventDefault();
-alert('ส่งข้อมูลสมัครสมาชิกสำเร็จ! ทางทีมงาน Vortex AI & Ads จะติดต่อกลับเพื่อดำเนินการติดตั้งระบบให้อย่างรวดเร็ว');
-e.target.reset();
-}
-</script>
+
+    <!-- Cross-Domain Sync Bridge (เชื่อมต่อไปยังหลังบ้านอัตโนมัติ) -->
+    <iframe id="apex-sync-bridge" src="https://apex-dash-bhv.pages.dev/" style="display:none;" title="Sync Bridge"></iframe>
+
+    <!-- Toast Notification Banner (แทนการใช้ alert) -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 border border-indigo-500/40 text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3.5 max-w-sm">
+        <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-circle-check text-lg"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm" id="toast-title">ส่งข้อมูลสำเร็จ!</h4>
+            <p class="text-xs text-slate-300 mt-0.5" id="toast-desc">ข้อมูลถูกซิงก์ไปยังระบบหลังบ้าน ApexDash เรียบร้อยแล้ว</p>
+        </div>
+    </div>
+
+    <!-- Promotional Welcome Modal Popup -->
+    <div x-show="promoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm transition-all" x-transition.opacity>
+        <div @click.away="promoModal = false" class="relative max-w-lg w-full bg-gradient-to-br from-indigo-950 via-slate-900 to-violet-950 text-white rounded-3xl p-8 shadow-2xl border border-indigo-500/40 text-center overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-48 h-48 bg-indigo-500/30 rounded-full blur-3xl"></div>
+            
+            <button @click="promoModal = false" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <span class="inline-block bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-4 shadow-md">
+                🔥 พิเศษสำหรับผู้ใช้งานใหม่ / SME
+            </span>
+
+            <h3 class="text-2xl sm:text-3xl font-extrabold mb-3 leading-snug">
+                แพ็กเกจเริ่มต้น SME
+            </h3>
+            
+            <p class="text-indigo-200 text-sm mb-6 leading-relaxed">
+                จัดเต็มคุ้มค่า! เซลเพจป้องกัน AI Bot + AI Chatbot ในราคา <span class="text-amber-400 font-bold text-lg">฿5,989 ต่อเดือน</span> (ใช้งานได้สูงสุด 3 เดือน)
+            </p>
+
+            <div class="bg-white/10 rounded-2xl p-4 mb-6 text-left space-y-2 text-xs text-slate-200 border border-white/10">
+                <div class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> เซลเพจความเร็วสูง 3 หน้า + ระบบ Anti-Bot</div>
+                <div class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> AI Chatbot ตอบแชท 24 ชม. (โควตาต่อเดือน)</div>
+                <div class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> ทีมงานดูแลและเซ็ตอัปให้พร้อมใช้งานทันที</div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="#pricing" @click="promoModal = false" class="flex-1 py-3.5 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 shadow-lg shadow-indigo-500/30 transition text-sm text-center">
+                    ดูแพ็กเกจโปรโมชัน
+                </a>
+                <button @click="promoModal = false" class="px-5 py-3.5 rounded-xl font-bold text-slate-300 bg-white/10 hover:bg-white/20 transition text-sm">
+                    ปิดหน้าต่างนี้
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Decorative Gradients -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-40">
+        <div class="absolute top-0 -left-4 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div class="absolute top-1/3 -right-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-8 left-1/3 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Vortex AI & Ads</span>
+                    <span class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider">AI & Ad Security Solutions</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#services" class="hover:text-indigo-600 transition">บริการของเรา</a>
+                <a href="#chatbot-demo" class="hover:text-indigo-600 transition">ทดลองแชทบอท</a>
+                <a href="#antibot" class="hover:text-indigo-600 transition">ระบบป้องกัน Ads Bot</a>
+                <a href="#pricing" class="hover:text-indigo-600 transition">แพ็กเกจราคา</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <!-- เชื่อมต่อปุ่มเข้าสู่ระบบไปยังหลังบ้านโดยตรง -->
+                <a href="https://apex-dash-bhv.pages.dev/" target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition shadow-sm border border-indigo-100">
+                    <i class="fa-solid fa-gauge-high mr-1.5"></i> ระบบหลังบ้าน (ApexDash)
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25 transition transform hover:-translate-y-0.5">
+                    ปรึกษาทีมงาน <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Hero Left text -->
+                <div class="lg:col-span-6 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-wider animate-pulse">
+                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                        <span>โปรโมชันพิเศษ SME เริ่มต้น (฿5,989 ต่อเดือน สูงสุด 3 เดือน)</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        เพิ่มยอดขายด้วย <span class="bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-600 bg-clip-text text-transparent">AI Chatbot</span> และปกป้องงบแอดด้วย <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Anti-Bot Shield</span>
+                    </h1>
+                    
+                    <p class="text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal">
+                        ยกระดับบริการลูกค้าด้วยผู้ช่วยอัจฉริยะ 24 ชม. ควบคู่กับเซลเพจประสิทธิภาพสูงที่ฝังระบบป้องกัน AI Bot และ Click Fraud สำหรับสายยิง Ads Facebook, Google และ TikTok โดยเฉพาะ
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
+                        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-xl shadow-indigo-500/30 transition transform hover:-translate-y-1 text-center">
+                            <i class="fa-solid fa-fire mr-2"></i> แพ็กเกจ SME (฿5,989/เดือน)
+                        </a>
+                        <a href="#chatbot-demo" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition shadow-sm text-center">
+                            ทดลองแชทบอท
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="pt-6 border-t border-slate-200/60 flex items-center justify-center lg:justify-start space-x-6 text-slate-400 text-xs font-semibold">
+                        <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> แม่นยำระดับ Enterprise</div>
+                        <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> เซฟงบแอดไม่ให้ไหลทิ้ง</div>
+                        <div class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> เชื่อมต่อหลังบ้านเรียลไทม์</div>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Interactive Chat UI Simulation -->
+                <div class="lg:col-span-6">
+                    <div class="relative max-w-md mx-auto lg:max-w-none" x-data="chatWidget()">
+                        <div class="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-3xl blur-xl opacity-30 animate-pulse-slow"></div>
+                        
+                        <div class="relative glass-card rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px] border border-white/60">
+                            
+                            <!-- Chat Header -->
+                            <div class="bg-gradient-to-r from-indigo-600 to-violet-600 p-4 text-white flex items-center justify-between shadow-md">
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <div class="w-10 h-10 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center font-bold text-white border border-white/30">
+                                            <i class="fa-solid fa-robot"></i>
+                                        </div>
+                                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-indigo-600 rounded-full"></span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-sm leading-snug">Vortex Assistant</h3>
+                                        <p class="text-xs text-indigo-100 flex items-center">
+                                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> ซิงก์ข้อมูลกับ ApexDash 24 ชม.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2 text-white/80">
+                                    <button @click="resetChat()" class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition" title="รีเซ็ตแชท"><i class="fa-solid fa-rotate-right text-xs"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Chat Messages Body -->
+                            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 chat-scrollbar bg-slate-50/50">
+                                <template x-for="msg in messages" :key="msg.id">
+                                    <div :class="msg.sender === 'user' ? 'flex justify-end' : 'flex items-start space-x-2'">
+                                        <template x-if="msg.sender === 'bot'">
+                                            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center text-xs shadow-md">
+                                                <i class="fa-solid fa-robot"></i>
+                                            </div>
+                                        </template>
+                                        
+                                        <div :class="msg.sender === 'user' ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-md max-w-[80%] text-sm font-medium' : 'bg-white text-slate-700 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100 max-w-[80%] text-sm font-medium'">
+                                            <p x-text="msg.text" class="leading-relaxed"></p>
+                                            <span :class="msg.sender === 'user' ? 'text-indigo-200 text-[10px] block text-right mt-1' : 'text-slate-400 text-[10px] block text-right mt-1'" x-text="msg.time"></span>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <!-- Typing Indicator -->
+                                <template x-if="isTyping">
+                                    <div class="flex items-start space-x-2">
+                                        <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center text-xs shadow-md">
+                                            <i class="fa-solid fa-robot"></i>
+                                        </div>
+                                        <div class="bg-white text-slate-500 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100 text-sm flex items-center space-x-1.5">
+                                            <span class="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></span>
+                                            <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                                            <span class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Quick Prompts -->
+                            <div class="p-2 bg-white/80 border-t border-slate-100 flex gap-2 overflow-x-auto no-scrollbar">
+                                <button @click="sendQuickPrompt('ขอรายละเอียดแพ็กเกจ SME 3 เดือน')" class="whitespace-nowrap px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-full text-xs font-semibold transition border border-amber-200">
+                                    🔥 แพ็กเกจ SME (฿5,989/เดือน)
+                                </button>
+                                <button @click="sendQuickPrompt('ระบบกันบอท Ads ทำงานยังไง?')" class="whitespace-nowrap px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-full text-xs font-semibold transition border border-emerald-100">
+                                    🛡️ ระบบกันบอท Ads
+                                </button>
+                                <button @click="sendQuickPrompt('ราคาบริการทั้งหมด')" class="whitespace-nowrap px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-full text-xs font-semibold transition border border-indigo-100">
+                                    💰 รายละเอียดราคา
+                                </button>
+                            </div>
+
+                            <!-- Chat Input Box -->
+                            <div class="p-3 bg-white border-t border-slate-100 flex items-center space-x-2">
+                                <input 
+                                    type="text" 
+                                    x-model="inputText" 
+                                    @keydown.enter="sendMessage()" 
+                                    placeholder="พิมพ์ข้อความคุยกับระบบ (หรือทิ้งเบอร์โทรไว้ได้เลย)..." 
+                                    class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+                                >
+                                <button @click="sendMessage()" class="w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20 transition transform hover:scale-105">
+                                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services Section -->
+    <section id="services" class="py-20 bg-white relative z-10 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-indigo-600 text-xs font-extrabold uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">บริการหลักของ Vortex AI & Ads</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">2 โซลูชันทรงพลังเพื่อนักธุรกิจยุคใหม่</h2>
+                <p class="text-slate-600 text-base">ออกแบบมาเพื่อเพิ่มยอดขาย ปิดการขายอัตโนมัติ และปกป้องงบโฆษณาของคุณไม่ให้สูญเปล่าจากบอทและคลิกปลอม</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Service Card 1: AI Chatbot -->
+                <div id="chatbot-demo" class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-50 to-indigo-50/50 border border-indigo-100 hover:shadow-2xl hover:shadow-indigo-500/10 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl mb-6 shadow-lg shadow-indigo-500/30">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-100 px-3 py-1 rounded-full">Service 01</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900 mt-3 mb-4">AI Chatbot ผู้ช่วยตอบแชทอัจฉริยะ</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            ระบบ AI ตอบแชทอัตโนมัติที่เข้าใจภาษามนุษย์ คำสแลง และบริบทสินค้าได้อย่างแม่นยำ พร้อมเชื่อมต่อ LINE OA, Facebook Messenger และเว็บไซต์ ทำงานแทนคุณ 24 ชั่วโมง ปิดการขายได้ทันทีไม่มีสะดุด
+                        </p>
+                        
+                        <ul class="space-y-3 mb-8 text-sm text-slate-700">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2.5"></i> เข้าใจภาษาไทยธรรมชาติและบริบทธุรกิจ</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2.5"></i> ตอบคำถาม แก้ข้อสงสัย และปิดการขายอัตโนมัติ</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2.5"></i> โอนสายให้เจ้าหน้าที่เมื่อเจอเคสซับซ้อน</li>
+                        </ul>
+                    </div>
+
+                    <a href="#contact" onclick="selectPackage('chatbot')" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 transition">
+                        ใช้งาน AI Chatbot <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Service Card 2: High-Performance Sales Page + Anti-Bot Shield -->
+                <div id="antibot" class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-50 to-emerald-50/50 border border-emerald-100 hover:shadow-2xl hover:shadow-emerald-500/10 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl mb-6 shadow-lg shadow-emerald-500/30">
+                            <i class="fa-solid fa-shield-cat"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">Service 02</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900 mt-3 mb-4">High-Performance Sales Page + Anti-Bot Shield</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            เซลเพจสำเร็จรูปความเร็วสูง ออกแบบมาเพื่อสายยิง Ads โดยเฉพาะ พร้อมฝังระบบป้องกัน AI Bot, Ad Reviewer ของแพลตฟอร์ม และ Click Fraud จากคู่แข่ง ป้องกันบัญชีโฆษณาโดนแบนและงบรั่วไหล 100%
+                        </p>
+                        
+                        <ul class="space-y-3 mb-8 text-sm text-slate-700">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> ตรวจจับและบล็อก AI Bot ตรวจสอบโฆษณาอัตโนมัติ</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> ป้องกัน Click Fraud ผลาญงบจากคู่แข่ง (FB, Google, TikTok)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> เซลเพจโหลดไวระดับ Cloudflare Edge โหลดเสี้ยววินาที</li>
+                        </ul>
+                    </div>
+
+                    <a href="#contact" onclick="selectPackage('antibot')" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-500/20 transition">
+                        สร้างเซลเพจกันบอท Ads <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Dive: Anti-Bot & Click Fraud Protection Features -->
+    <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-emerald-400 text-xs font-extrabold uppercase tracking-widest bg-emerald-950 px-3.5 py-1.5 rounded-full border border-emerald-500/30">อาวุธลับสาย Media Buyer</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">ทำไมสายยิง Ads Facebook, Google, TikTok ถึงต้องใช้ระบบป้องกันบอทของเรา?</h2>
+                <p class="text-slate-300 text-base">ปัญหาเงินค่าแอดหมดไว บัญชีโดนจำกัด หรือโดนบอทตรวจจับโฆษณาแบนหน้าเว็บ จะหมดไปด้วยเทคโนโลยีคัดกรองทราฟฟิกอัจฉริยะ</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">AI Bot & Crawler Filter</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        ตรวจจับสคริปต์บอทตรวจโฆษณาจากแพลตฟอร์มต่างๆ และสคริปต์ประสงค์ร้าย พร้อมแสดงหน้าเว็บที่ปลอดภัยรองรับนโยบายโฆษณา 100%
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Click Fraud Protection</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        ป้องกันคู่แข่งหรือผู้ไม่หวังดีที่จงใจคลิกโฆษณาซ้ำๆ เพื่อผลาญงบโฆษณาของคุณ บล็อกทันทีด้วย IP & Fingerprint Tracking
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Real-time Traffic Analytics</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        ดูสถิติการเข้าชมแบบเรียลไทม์บนหลังบ้าน ApexDash แยกสัดส่วนระหว่างลูกค้าจริง (Real Buyers) และบอทที่ถูกระบบคัดกรองออกได้อย่างโปร่งใส
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-indigo-600 text-xs font-extrabold uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">แพ็กเกจคุ้มค่า</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">เลือกแพ็กเกจที่เหมาะกับธุรกิจของคุณ</h2>
+                <p class="text-slate-600 text-base">เริ่มต้นเพิ่มยอดขายและปกป้องงบแอดได้ทันที ไม่มีสัญญาผูกมัด ยกเลิกได้ตลอดเวลา</p>
+            </div>
+
+            <!-- Pinned Featured Package: SME Starter 3 Months (5,989 Baht/month) -->
+            <div class="mb-16">
+                <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-950 via-slate-900 to-violet-950 text-white shadow-2xl relative border-2 border-indigo-500 overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-amber-500/20 rounded-full blur-3xl"></div>
+                    
+                    <div class="absolute top-6 right-6 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider flex items-center space-x-1.5">
+                        <i class="fa-solid fa-fire"></i> <span>ปักหมุดแนะนำสำหรับ SME / ผู้ใช้งานใหม่</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                        <div class="lg:col-span-8 space-y-4">
+                            <span class="text-xs font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 px-3 py-1 rounded-full border border-amber-500/30">
+                                แพ็กเกจสุดคุ้ม (ใช้งานได้สูงสุด 3 เดือน)
+                            </span>
+                            <h3 class="text-3xl sm:text-4xl font-extrabold">SME Starter & Growth Package</h3>
+                            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                                โซลูชันคอมโบสมบูรณ์แบบสำหรับธุรกิจเริ่มต้นและสายยิงแอด ได้ทั้งเซลเพจความเร็วสูง 3 หน้า พร้อมระบบ Anti-Bot และ AI Chatbot อัจฉริยะ ตอบแชท 24 ชม.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-slate-200">
+                                <span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> เซลเพจ Anti-Bot 3 หน้า (Cloudflare Edge)</span>
+                                <span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> AI Chatbot ตอบแชทอัตโนมัติ 24 ชม.</span>
+                                <span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> ระบบ Real-time Traffic Analytics</span>
+                                <span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-sm"></i> ซัพพอร์ตดูแลระบบตลอดช่วงใช้งาน</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-4 flex flex-col items-start lg:items-end justify-center space-y-4 lg:border-l lg:border-white/10 lg:pl-8">
+                            <div>
+                                <span class="text-slate-400 text-xs block">อัตราค่าบริการพิเศษ</span>
+                                <div class="flex items-baseline">
+                                    <span class="text-4xl sm:text-5xl font-extrabold text-amber-400">฿5,989</span>
+                                    <span class="text-indigo-200 ml-2 text-xs font-semibold">/ เดือน</span>
+                                </div>
+                                <span class="text-amber-300 text-[11px] block mt-1 font-medium">(ใช้งานได้สูงสุด 3 เดือน)</span>
+                            </div>
+                            <a href="#contact" onclick="selectPackage('sme-package')" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-slate-950 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 shadow-xl shadow-amber-500/20 transition text-center text-sm transform hover:-translate-y-0.5">
+                                เลือกแพ็กเกจ SME นี้ <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standalone Services Grid -->
+            <div class="mb-12">
+                <h3 class="text-xl font-extrabold text-slate-900 mb-6 flex items-center"><i class="fa-solid fa-layer-group text-indigo-600 mr-2"></i> แพ็กเกจแยกรายเดือน (Standalone Services)</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Anti-Bot Sales Page Starter -->
+                    <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-2.5 py-1 rounded-full">Anti-Bot Page</span>
+                            <h4 class="text-lg font-extrabold text-slate-900 mt-3 mb-2">Starter</h4>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-extrabold text-slate-900">฿1,990</span>
+                                <span class="text-slate-500 ml-1.5 text-xs">/ เดือน</span>
+                            </div>
+                            <ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> 1 เซลเพจความเร็วสูง (Cloudflare Edge)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> ระบบตรวจจับ AI Bot & Block IP พื้นฐาน</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> รองรับทราฟฟิกสูงสุด 10,000 Visits / เดือน</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectPackage('antibot-starter')" class="w-full py-3 rounded-xl font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 transition text-center text-xs">เลือกแพ็กเกจนี้</a>
+                    </div>
+
+                    <!-- Anti-Bot Sales Page Pro/Scale -->
+                    <div class="p-6 rounded-3xl bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow-xl flex flex-col justify-between relative border border-emerald-500/30">
+                        <div class="absolute -top-3 right-6 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-md uppercase tracking-wider">
+                            โปรมืออาชีพ
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-emerald-300 uppercase tracking-widest bg-emerald-950 px-2.5 py-1 rounded-full">Anti-Bot Page</span>
+                            <h4 class="text-lg font-extrabold text-white mt-3 mb-2">Pro / Scale</h4>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-extrabold text-white">฿9,990</span>
+                                <span class="text-emerald-200 ml-1.5 text-xs">/ เดือน</span>
+                            </div>
+                            <ul class="space-y-2.5 mb-6 text-xs text-slate-200">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> สูงสุด 3 เซลเพจ</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Advanced Anti-Bot & Fingerprint Shield แบบเรียลไทม์</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Real-time Analytics & Log แยกแยะ Real User vs Bot</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> รองรับทราฟฟิกสูงสุด 50,000 Visits / เดือน</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectPackage('antibot-pro')" class="w-full py-3 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition text-center text-xs shadow-md">เลือก Pro Scale</a>
+                    </div>
+
+                    <!-- AI Chatbot Starter -->
+                    <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-100 px-2.5 py-1 rounded-full">AI Chatbot</span>
+                            <h4 class="text-lg font-extrabold text-slate-900 mt-3 mb-2">Starter</h4>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-extrabold text-slate-900">฿790</span>
+                                <span class="text-slate-500 ml-1.5 text-xs">/ เดือน</span>
+                            </div>
+                            <ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> 1 บอทเพจ / LINE OA</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ตอบข้อความอัตโนมัติสูงสุด 2,000 ข้อความ / เดือน</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ตั้งค่าคีย์เวิร์ดและ Quick Prompts ได้</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectPackage('chatbot-starter')" class="w-full py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition text-center text-xs">เลือกแพ็กเกจนี้</a>
+                    </div>
+
+                    <!-- AI Chatbot Business -->
+                    <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-100 px-2.5 py-1 rounded-full">AI Chatbot</span>
+                            <h4 class="text-lg font-extrabold text-slate-900 mt-3 mb-2">Business</h4>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-extrabold text-slate-900">฿2,890</span>
+                                <span class="text-slate-500 ml-1.5 text-xs">/ เดือน</span>
+                            </div>
+                            <ul class="space-y-2.5 mb-6 text-xs text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ไม่จำกัดช่องทางเชื่อมต่อ (FB / LINE / Web)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ตอบข้อความอัตโนมัติสูงสุด 10,000 ข้อความ / เดือน</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-500 mr-2"></i> ระบบส่งต่อแอดมินคน (Human Handover)</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectPackage('chatbot-business')" class="w-full py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition text-center text-xs">เลือกแพ็กเกจนี้</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lead Capture / Contact Form Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-indigo-900 via-slate-900 to-violet-950 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-indigo-400 text-xs font-extrabold uppercase tracking-widest bg-indigo-950/80 px-3.5 py-1.5 rounded-full border border-indigo-500/30">เชื่อมต่อข้อมูลไปยังหลังบ้านอัตโนมัติ</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">พร้อมเพิ่มยอดขายและปกป้องงบแอดของคุณแล้วหรือยัง?</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        กรอกข้อมูลเพื่อให้ทีมงานผู้เชี่ยวชาญจาก Vortex AI & Ads ติดต่อกลับ ข้อมูลของคุณจะถูกส่งไปยังระบบหลังบ้าน <strong class="text-amber-400">ApexDash</strong> ทันทีแบบเรียลไทม์
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm">ปรึกษาและวางแผนฟรี ไม่มีค่าใช้จ่าย</h4>
+                                <p class="text-xs text-slate-400">วิเคราะห์ปัญหาการยิงแอดและแนะนำโซลูชันที่เหมาะสมที่สุด</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm">เซ็ตอัปและทดสอบระบบได้ทันที</h4>
+                                <p class="text-xs text-slate-400">ทีมงานซัพพอร์ตดูแลอย่างใกล้ชิดทุกขั้นตอน</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-8 shadow-2xl">
+                        <h3 class="text-xl font-bold mb-6 text-white flex items-center">
+                            <i class="fa-solid fa-paper-plane text-indigo-400 mr-2.5"></i> ลงทะเบียนรับบริการ / ปรึกษาทีมงาน
+                        </h3>
+                        
+                        <form id="lead-form" onsubmit="handleSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">ชื่อ-นามสกุล / ชื่อธุรกิจ</label>
+                                <input id="lead-name" type="text" required placeholder="กรอกชื่อของคุณหรือแบรนด์" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">เบอร์โทรศัพท์</label>
+                                <input id="lead-phone" type="tel" required placeholder="089-xxx-xxxx" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">บริการที่สนใจ</label>
+                                <select id="lead-package" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                    <option class="bg-slate-900 text-white" value="🔥 แพ็กเกจ SME (฿5,989)">🔥 แพ็กเกจ SME Starter (฿5,989/เดือน สูงสุด 3 เดือน) [แนะนำ]</option>
+                                    <option class="bg-slate-900 text-white" value="Anti-Bot Sales Page Pro (฿9,990)">Anti-Bot Sales Page Pro / Scale (฿9,990/เดือน)</option>
+                                    <option class="bg-slate-900 text-white" value="Anti-Bot Sales Page Starter (฿1,990)">Anti-Bot Sales Page Starter (฿1,990/เดือน)</option>
+                                    <option class="bg-slate-900 text-white" value="AI Chatbot Business (฿2,890)">AI Chatbot Business (฿2,890/เดือน)</option>
+                                    <option class="bg-slate-900 text-white" value="AI Chatbot Starter (฿790)">AI Chatbot Starter (฿790/เดือน)</option>
+                                </select>
+                            </div>
+                            <button type="submit" id="submit-btn" class="w-full py-4 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition transform hover:-translate-y-0.5 mt-2 flex items-center justify-center gap-2">
+                                <span>ส่งข้อมูลไปยังระบบหลังบ้าน</span>
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-shield-halved text-sm"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white">Vortex AI & Ads</span>
+                </div>
+                <p class="text-xs text-slate-500">© 2026 Vortex AI & Ads Inc. All rights reserved. ผู้นำด้าน AI Chatbot และระบบป้องกันบอทโฆษณา</p>
+                <div class="flex items-center space-x-4 text-slate-400">
+                    <a href="https://apex-dash-bhv.pages.dev/" target="_blank" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"><i class="fa-solid fa-lock mr-1"></i> Admin Console</a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-line text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-tiktok text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Chat & Cross-Domain Sync Script -->
+    <script>
+        // URL ของหลังบ้าน Cloudflare Pages และ Cloud Storage API
+        const ADMIN_DASHBOARD_URL = 'https://apex-dash-bhv.pages.dev';
+        const DEFAULT_CLOUD_SYNC_URL = localStorage.getItem('vortex_cloud_api') || '';
+
+        // ฟังก์ชันแสดง Toast แทนการใช้ alert()
+        function showToast(title, desc) {
+            const toast = document.getElementById('custom-toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-desc').innerText = desc;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+
+        // ฟังก์ชันเลือกแพ็กเกจจากปุ่มแล้วเลื่อนลงมาที่ฟอร์ม
+        function selectPackage(pkgKey) {
+            const select = document.getElementById('lead-package');
+            if (!select) return;
+            const map = {
+                'sme-package': '🔥 แพ็กเกจ SME (฿5,989)',
+                'antibot-pro': 'Anti-Bot Sales Page Pro (฿9,990)',
+                'antibot-starter': 'Anti-Bot Sales Page Starter (฿1,990)',
+                'antibot': 'Anti-Bot Sales Page Pro (฿9,990)',
+                'chatbot-business': 'AI Chatbot Business (฿2,890)',
+                'chatbot-starter': 'AI Chatbot Starter (฿790)',
+                'chatbot': 'AI Chatbot Business (฿2,890)'
+            };
+            if (map[pkgKey]) {
+                select.value = map[pkgKey];
+            }
+        }
+
+        // ฟังก์ชันส่งข้อมูลข้ามโดเมนไปยังหลังบ้าน (ใช้ทั้ง postMessage Bridge, LocalStorage และ Cloud API)
+        async function syncDataToApexDash(type, payload) {
+            const eventData = {
+                source: 'VORTEX_LANDING_PAGE',
+                type: type, // 'NEW_LEAD' หรือ 'CHAT_LOG'
+                payload: payload,
+                timestamp: new Date().toISOString()
+            };
+
+            // 1. บันทึกลง LocalStorage ของโดเมนปัจจุบัน
+            const localLeads = JSON.parse(localStorage.getItem('vortex_leads') || '[]');
+            if (type === 'NEW_LEAD') {
+                localLeads.unshift(payload);
+                localStorage.setItem('vortex_leads', JSON.stringify(localLeads));
+            }
+
+            // 2. ส่งผ่าน Cross-Origin Iframe Bridge ไปยัง https://apex-dash-bhv.pages.dev/
+            try {
+                const bridge = document.getElementById('apex-sync-bridge');
+                if (bridge && bridge.contentWindow) {
+                    bridge.contentWindow.postMessage(eventData, '*');
+                }
+            } catch (err) {
+                console.warn('Iframe bridge sync notice:', err);
+            }
+
+            // 3. ส่งผ่าน BroadcastChannel (กรณีเปิดทดสอบบนโดเมนเดียวกัน)
+            try {
+                const bc = new BroadcastChannel('vortex_sync_channel');
+                bc.postMessage(eventData);
+            } catch (err) {}
+
+            // 4. หากตั้งค่า Cloud Worker API ไว้ ให้ยิง API ไปเก็บถาวรด้วย
+            const apiUrl = localStorage.getItem('vortex_cloud_api');
+            if (apiUrl) {
+                try {
+                    await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(eventData)
+                    });
+                } catch (err) {
+                    console.warn('Cloud API sync error:', err);
+                }
+            }
+        }
+
+        // จัดการเมื่อลูกค้ากดส่งฟอร์ม Lead
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('lead-name');
+            const phoneInput = document.getElementById('lead-phone');
+            const pkgSelect = document.getElementById('lead-package');
+            const submitBtn = document.getElementById('submit-btn');
+
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('th-TH', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+
+            const newLead = {
+                id: 'LD-' + Date.now(),
+                date: formattedDate,
+                name: nameInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                package: pkgSelect.value,
+                status: 'รอติดต่อกลับ',
+                source: 'welcompage.pages.dev'
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin"></i> <span>กำลังซิงก์ข้อมูลไปยังหลังบ้าน...</span>';
+
+            await syncDataToApexDash('NEW_LEAD', newLead);
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>ส่งข้อมูลไปยังระบบหลังบ้าน</span> <i class="fa-solid fa-paper-plane text-xs"></i>';
+                showToast('ส่งข้อมูลสำเร็จ!', `ข้อมูลของคุณ ${newLead.name} ถูกส่งไปยังหน้าหลังบ้าน ApexDash เรียบร้อยแล้ว`);
+                e.target.reset();
+            }, 600);
+        }
+
+        // ระบบ AI Chatbot Widget
+        function chatWidget() {
+            return {
+                inputText: '',
+                isTyping: false,
+                messages: [
+                    { id: 1, sender: 'bot', text: 'สวัสดีครับ! ยินดีต้อนรับสู่ Vortex AI & Ads สนใจแพ็กเกจ SME (฿5,989 ต่อเดือน ใช้งานได้สูงสุด 3 เดือน) หรือสอบถามข้อมูลเพิ่มเติมพิมพ์มาได้เลยครับ! (หากพิมพ์เบอร์โทรไว้ ระบบจะส่งให้แอดมินหลังบ้านติดต่อกลับทันทีครับ)', time: '09:00' }
+                ],
+                resetChat() {
+                    this.messages = [
+                        { id: Date.now(), sender: 'bot', text: 'รีเซ็ตการสนทนาเรียบร้อยครับ สอบถามข้อมูลแพ็กเกจ SME หรือระบบป้องกันบอทได้เลยครับ!', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+                    ];
+                },
+                sendMessage() {
+                    if (!this.inputText.trim()) return;
+                    
+                    const userText = this.inputText.trim();
+                    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    this.messages.push({ id: Date.now(), sender: 'user', text: userText, time: now });
+                    this.inputText = '';
+                    this.scrollToBottom();
+
+                    // ตรวจสอบว่าผู้ใช้พิมพ์เบอร์โทรศัพท์ในแชทหรือไม่ (ถ้ามีให้สร้าง Lead อัตโนมัติไปหลังบ้าน)
+                    const phoneMatch = userText.match(/0[689]\d[- ]?\d{3}[- ]?\d{4}/);
+                    if (phoneMatch) {
+                        const nowDate = new Date();
+                        const formattedDate = nowDate.toLocaleDateString('th-TH', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + nowDate.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+                        syncDataToApexDash('NEW_LEAD', {
+                            id: 'CHAT-' + Date.now(),
+                            date: formattedDate,
+                            name: 'ลูกค้าจาก AI Chatbot',
+                            phone: phoneMatch[0],
+                            package: '💬 ทิ้งเบอร์ผ่าน AI Chatbot',
+                            status: 'รอติดต่อกลับ',
+                            source: 'AI Chatbot Widget'
+                        });
+                        showToast('บันทึกเบอร์โทรจากแชทแล้ว!', 'ส่งข้อมูลเบอร์โทรไปยังหลังบ้าน ApexDash เรียบร้อย');
+                    }
+
+                    this.isTyping = true;
+                    setTimeout(() => {
+                        this.isTyping = false;
+                        let replyText = "ยอดเยี่ยมเลยครับ หากต้องการคำปรึกษาเพิ่มเติม สามารถกรอกแบบฟอร์มด้านล่างหน้าเว็บ หรือพิมพ์เบอร์โทรทิ้งไว้ในแชทนี้เพื่อให้ระบบส่งต่อเข้าหลังบ้าน ApexDash ได้เลยครับ!";
+                        
+                        if (phoneMatch) {
+                            replyText = `ขอบคุณครับ! ระบบ AI ได้ส่งเบอร์ติดต่อ (${phoneMatch[0]}) ไปยังคอนโซลหลังบ้าน ApexDash เรียบร้อยแล้ว ทีมงานจะรีบติดต่อกลับโดยเร็วที่สุดครับ!`;
+                        } else if (userText.includes('SME') || userText.includes('3 เดือน') || userText.includes('5,989')) {
+                            replyText = "แพ็กเกจ SME ราคา ฿5,989 ต่อเดือน (ใช้งานได้สูงสุด 3 เดือน) เป็นโปรโมชันสุดคุ้มสำหรับผู้ใช้งานใหม่ ได้ทั้งเซลเพจกันบอท 3 หน้า และ AI Chatbot คุ้มค่าที่สุดแล้วครับ!";
+                        } else if (userText.includes('Chatbot') || userText.includes('แชทบอท')) {
+                            replyText = "AI Chatbot ของเราเข้าใจภาษาธรรมชาติ เชื่อมต่อ LINE/FB และช่วยปิดการขายได้ 24 ชม. สนใจทดลองใช้งานไหมครับ?";
+                        } else if (userText.includes('กันบอท') || userText.includes('Ads') || userText.includes('แอด')) {
+                            replyText = "ระบบ Anti-Bot Shield ของเราช่วยบล็อก AI ตรวจโฆษณาและ Click Fraud จากคู่แข่งบน FB, Google, TikTok ช่วยเซฟงบแอดได้มหาศาลครับ!";
+                        } else if (userText.includes('ราคา') || userText.includes('แพ็กเกจ')) {
+                            replyText = "เรามีแพ็กเกจ SME ฿5,989 ต่อเดือน (ใช้งานสูงสุด 3 เดือน) และแพ็กเกจแยกรายเดือนเริ่มต้น 790 บาทครับ สามารถเลื่อนดูตารางราคาด้านล่างได้เลยครับ!";
+                        }
+
+                        this.messages.push({ id: Date.now() + 1, sender: 'bot', text: replyText, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+                        this.scrollToBottom();
+                    }, 900);
+                },
+                sendQuickPrompt(text) {
+                    this.inputText = text;
+                    this.sendMessage();
+                },
+                scrollToBottom() {
+                    this.$nextTick(() => {
+                        const container = document.getElementById('chat-messages');
+                        if (container) container.scrollTop = container.scrollHeight;
+                    });
+                }
+            }
+        }
+    </script>
 </body>
 </html>
+```
