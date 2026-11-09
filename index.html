@@ -575,13 +575,6 @@
                         </div>
                     </div>
 
-                    <div class="mt-6 max-w-sm rounded-2xl border border-white/15 bg-white/5 p-4">
-                        <div class="flex items-center gap-2 text-sm font-semibold text-slate-200">
-                            <i class="fa-solid fa-wallet text-emerald-400"></i>
-                            <span>ยอดคงเหลือ OptionPay</span>
-                        </div>
-                        <p id="optionpay-balance" class="mt-2 text-2xl font-extrabold text-white" aria-live="polite">กำลังโหลด...</p>
-                    </div>
                 </div>
 
                 <div class="lg:col-span-6">
@@ -646,30 +639,6 @@
 
     <!-- Interactive Chat & Cross-Domain Sync Script -->
     <script>
-        async function loadOptionPayBalance() {
-            const balanceElement = document.getElementById('optionpay-balance');
-            if (!balanceElement) return;
-
-            try {
-                const response = await fetch('https://pay-on.autopage.workers.dev/', { cache: 'no-store' });
-                if (!response.ok) throw new Error(`Worker returned ${response.status}`);
-
-                const data = await response.json();
-                const balance = Number(data.availableBalance);
-                if (data.success !== true || !Number.isFinite(balance)) {
-                    throw new Error('Invalid balance response');
-                }
-
-                balanceElement.textContent = new Intl.NumberFormat('th-TH', {
-                    style: 'currency',
-                    currency: data.currency || 'THB'
-                }).format(balance);
-            } catch (error) {
-                balanceElement.textContent = 'ไม่สามารถโหลดข้อมูลได้';
-                console.error('Unable to load OptionPay balance:', error);
-            }
-        }
-
         function showToast(title, desc) {
             const toast = document.getElementById('custom-toast');
             document.getElementById('toast-title').innerText = title;
@@ -842,8 +811,6 @@
             }
         }
 
-        loadOptionPayBalance();
     </script>
 </body>
 </html>
-```
