@@ -639,6 +639,8 @@
 
     <!-- Interactive Chat & Cross-Domain Sync Script -->
     <script>
+        const DEFAULT_CLOUD_API = 'https://vortex-leads-api.autopage.workers.dev/';
+
         function showToast(title, desc) {
             const toast = document.getElementById('custom-toast');
             document.getElementById('toast-title').innerText = title;
@@ -694,13 +696,52 @@
                 bc.postMessage(eventData);
             } catch (err) {}
 
-            const apiUrl = localStorage.getItem('vortex_cloud_api');
-            if (apiUrl) {
+            const apiUrl = localStorage.getItem('vortex_cloud_api') || DEFAULT_CLOUD_API;
+            let response;
+            try {
+                response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(eventData)
+                });
+            } catch (error) {
+                throw new Error('เชื่อมต่อ Worker ไม่ได้ ตรวจ URL และ CORS ของโดเมนหน้าเว็บ');
+            }
+
+            let result;
+            try {
+                result = await response.json();
+            } catch (error) {
+                throw new Error(`Worker ตอบกลับไม่ใช่ JSON (HTTP ${response.status})`);
+            }
+
+            if (!response.ok || result.success === false) {
+                throw new Error(result.error || `Worker ตอบกลับ HTTP ${response.status}`);
+            }
+            return result;
+        }
+
+        async function syncStoredLeadsToApi() {
+            const apiUrl = localStorage.getItem('vortex_cloud_api') || DEFAULT_CLOUD_API;
+            let leads = [];
+            try {
+                leads = JSON.parse(localStorage.getItem('vortex_leads') || '[]');
+            } catch (err) {
+                return;
+            }
+
+            for (const lead of leads) {
+                if (!lead?.name || !lead?.phone) continue;
                 try {
                     await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(eventData)
+                        body: JSON.stringify({
+                            source: 'VORTEX_LANDING_PAGE',
+                            type: 'NEW_LEAD',
+                            payload: lead,
+                            timestamp: new Date().toISOString()
+                        })
                     });
                 } catch (err) {}
             }
@@ -729,14 +770,16 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin"></i> <span>กำลังส่งข้อมูล...</span>';
 
-            await syncDataToApexDash('NEW_LEAD', newLead);
-
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>ส่งข้อมูลติดต่อกลับ</span> <i class="fa-solid fa-paper-plane text-xs"></i>';
+            try {
+                await syncDataToApexDash('NEW_LEAD', newLead);
                 showToast('ส่งข้อมูลสำเร็จ!', `ขอบคุณคุณ ${newLead.name} ทีมงานจะรีบติดต่อกลับโดยเร็วที่สุดครับ`);
                 e.target.reset();
-            }, 600);
+            } catch (error) {
+                showToast('ส่งข้อมูลไม่สำเร็จ', `${error.message} ข้อมูลยังเก็บไว้ในเบราว์เซอร์และจะลองส่งใหม่เมื่อเปิดหน้าเว็บอีกครั้ง`);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>ส่งข้อมูลติดต่อกลับ</span> <i class="fa-solid fa-paper-plane text-xs"></i>';
+            }
         }
 
         function chatWidget() {
@@ -773,8 +816,11 @@
                             package: '💬 ทิ้งเบอร์ผ่าน AI Chatbot',
                             status: 'รอติดต่อกลับ',
                             source: 'AI Chatbot Widget'
+                        }).then(() => {
+                            showToast('บันทึกเบอร์ติดต่อเรียบร้อย!', 'ทีมงานได้รับเบอร์โทรศัพท์ของคุณแล้วครับ');
+                        }).catch((error) => {
+                            showToast('ส่งข้อมูลไม่สำเร็จ', `${error.message} เบอร์ยังเก็บไว้ในเบราว์เซอร์และจะลองส่งใหม่เมื่อเปิดหน้าเว็บอีกครั้ง`);
                         });
-                        showToast('บันทึกเบอร์ติดต่อเรียบร้อย!', 'ทีมงานได้รับเบอร์โทรศัพท์ของคุณแล้วครับ');
                     }
 
                     this.isTyping = true;
@@ -811,6 +857,8 @@
             }
         }
 
+        syncStoredLeadsToApi();
     </script>
 </body>
 </html>
+```
