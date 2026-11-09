@@ -639,7 +639,15 @@
 
     <!-- Interactive Chat & Cross-Domain Sync Script -->
     <script>
-        const DEFAULT_CLOUD_API = 'https://vortex-leads-api.autopage.workers.dev/';
+        const DEFAULT_CLOUD_API = 'https://admin-leads-api.autopage.workers.dev/';
+
+        function getCloudApiUrl() {
+            const savedApi = localStorage.getItem('vortex_cloud_api');
+            if (!savedApi || savedApi === 'https://vortex-leads-api.autopage.workers.dev/') {
+                return DEFAULT_CLOUD_API;
+            }
+            return savedApi;
+        }
 
         function showToast(title, desc) {
             const toast = document.getElementById('custom-toast');
@@ -696,7 +704,7 @@
                 bc.postMessage(eventData);
             } catch (err) {}
 
-            const apiUrl = localStorage.getItem('vortex_cloud_api') || DEFAULT_CLOUD_API;
+            const apiUrl = getCloudApiUrl();
             let response;
             try {
                 response = await fetch(apiUrl, {
@@ -722,7 +730,7 @@
         }
 
         async function syncStoredLeadsToApi() {
-            const apiUrl = localStorage.getItem('vortex_cloud_api') || DEFAULT_CLOUD_API;
+            const apiUrl = getCloudApiUrl();
             let leads = [];
             try {
                 leads = JSON.parse(localStorage.getItem('vortex_leads') || '[]');
